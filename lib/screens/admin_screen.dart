@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'firebase_service.dart';
-import 'models.dart';
+import '../services/firebase_service.dart'; // ✓ CORRECTO
+import '../models/models.dart';
 
 class AdminScreen extends StatefulWidget {
   final String userId;
@@ -12,7 +12,8 @@ class AdminScreen extends StatefulWidget {
   State<AdminScreen> createState() => _AdminScreenState();
 }
 
-class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStateMixin {
+class _AdminScreenState extends State<AdminScreen>
+    with SingleTickerProviderStateMixin {
   final FirebaseService _firebaseService = FirebaseService();
   late TabController _tabController;
 
@@ -78,7 +79,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
       stream: FirebaseFirestore.instance.collection('rutas').snapshots(),
       builder: (context, rutasSnap) {
         return StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('estudiantes').snapshots(),
+          stream:
+              FirebaseFirestore.instance.collection('estudiantes').snapshots(),
           builder: (context, estudiantesSnap) {
             return StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
@@ -97,7 +99,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
                     children: [
                       const Text(
                         'Resumen del Sistema',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 24),
                       Row(
@@ -146,7 +149,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
                       const SizedBox(height: 24),
                       const Text(
                         'Actividad Reciente',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 12),
                       Expanded(
@@ -158,14 +162,16 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return const Center(child: CircularProgressIndicator());
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
 
                             return ListView.builder(
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
-                                var evento = EventoViaje.fromMap(
-                                  snapshot.data!.docs[index].data() as Map<String, dynamic>,
+                                var evento = EventoViaje.fromFirestore(
+                                  snapshot.data!.docs[index].data()
+                                      as Map<String, dynamic>,
                                   snapshot.data!.docs[index].id,
                                 );
 
@@ -219,7 +225,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
+  Widget _buildStatCard(
+      String title, String value, IconData icon, Color color) {
     return Card(
       elevation: 4,
       child: Padding(
@@ -255,7 +262,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         }
 
         List<Ruta> rutas = snapshot.data!.docs
-            .map((doc) => Ruta.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+            .map((doc) =>
+                Ruta.fromFirestore(doc.data() as Map<String, dynamic>, doc.id))
             .toList();
 
         return ListView.builder(
@@ -281,14 +289,17 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
                           'Paradas:',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        ...ruta.paradas.map((parada) => ListTile(
-                          dense: true,
-                          leading: const Icon(Icons.location_on, size: 20),
-                          title: Text(parada.direccion),
-                          subtitle: Text(
-                            '${parada.ubicacion.latitude.toStringAsFixed(4)}, ${parada.ubicacion.longitude.toStringAsFixed(4)}',
-                          ),
-                        )).toList(),
+                        ...ruta.paradas
+                            .map((parada) => ListTile(
+                                  dense: true,
+                                  leading:
+                                      const Icon(Icons.location_on, size: 20),
+                                  title: Text(parada.direccion),
+                                  subtitle: Text(
+                                    '${parada.ubicacion.latitude.toStringAsFixed(4)}, ${parada.ubicacion.longitude.toStringAsFixed(4)}',
+                                  ),
+                                ))
+                            .toList(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -301,7 +312,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
                               onPressed: () => _eliminarRuta(ruta.id),
                               icon: const Icon(Icons.delete),
                               label: const Text('Eliminar'),
-                              style: TextButton.styleFrom(foregroundColor: Colors.red),
+                              style: TextButton.styleFrom(
+                                  foregroundColor: Colors.red),
                             ),
                           ],
                         ),
@@ -326,7 +338,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         }
 
         List<Estudiante> estudiantes = snapshot.data!.docs
-            .map((doc) => Estudiante.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+            .map((doc) => Estudiante.fromFirestore(
+                doc.data() as Map<String, dynamic>, doc.id))
             .toList();
 
         return ListView.builder(
@@ -451,7 +464,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
 
             String estado = data['estado'] ?? 'desconocido';
             Color estadoColor = estado == 'activo' ? Colors.green : Colors.grey;
-            DateTime? fechaInicio = (data['fechaInicio'] as Timestamp?)?.toDate();
+            DateTime? fechaInicio =
+                (data['fechaInicio'] as Timestamp?)?.toDate();
             DateTime? fechaFin = (data['fechaFin'] as Timestamp?)?.toDate();
 
             return Card(
@@ -492,7 +506,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
 
                       return Column(
                         children: eventosSnap.data!.docs.map((eventoDoc) {
-                          var eventoData = eventoDoc.data() as Map<String, dynamic>;
+                          var eventoData =
+                              eventoDoc.data() as Map<String, dynamic>;
                           DateTime timestamp =
                               (eventoData['timestamp'] as Timestamp).toDate();
 
@@ -624,7 +639,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Eliminar', style: TextStyle(color: Colors.white)),
+            child:
+                const Text('Eliminar', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -641,14 +657,16 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
   void _crearEstudiante() {
     // Implementar diálogo para crear estudiante
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Función de crear estudiante - Por implementar')),
+      const SnackBar(
+          content: Text('Función de crear estudiante - Por implementar')),
     );
   }
 
   void _editarEstudiante(Estudiante estudiante) {
     // Implementar edición de estudiante
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Función de editar estudiante - Por implementar')),
+      const SnackBar(
+          content: Text('Función de editar estudiante - Por implementar')),
     );
   }
 
@@ -666,7 +684,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Eliminar', style: TextStyle(color: Colors.white)),
+            child:
+                const Text('Eliminar', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -686,7 +705,8 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
   void _crearConductor() {
     // Implementar diálogo para crear conductor
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Función de crear conductor - Por implementar')),
+      const SnackBar(
+          content: Text('Función de crear conductor - Por implementar')),
     );
   }
 }

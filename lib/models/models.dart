@@ -39,7 +39,8 @@ class Usuario {
         orElse: () => TipoUsuario.padre,
       ),
       telefono: data['telefono'],
-      fechaCreacion: (data['fechaCreacion'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      fechaCreacion:
+          (data['fechaCreacion'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
 
@@ -64,7 +65,7 @@ class Estudiante {
   final String nombrePadre;
   final LatLng ubicacionCasa;
   final String direccion;
-  final String? telefono Emergencia;
+  final String? telefonoEmergencia;
   final bool activo;
 
   Estudiante({
@@ -211,8 +212,10 @@ class Viaje {
         (e) => e.toString() == 'EstadoViaje.${data['estado']}',
         orElse: () => EstadoViaje.enEspera,
       ),
-      estudiantesEsperados: List<String>.from(data['estudiantesEsperados'] ?? []),
-      estudiantesAbordados: List<String>.from(data['estudiantesAbordados'] ?? []),
+      estudiantesEsperados:
+          List<String>.from(data['estudiantesEsperados'] ?? []),
+      estudiantesAbordados:
+          List<String>.from(data['estudiantesAbordados'] ?? []),
       ubicacionActual: data['ubicacionActual'] != null
           ? LatLng(
               data['ubicacionActual']['latitude'],

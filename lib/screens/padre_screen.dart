@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'firebase_service.dart';
-import 'models.dart';
+import '../services/firebase_service.dart'; // ✓ CORRECTO
+import '../models/models.dart'; // ✓ CORRECTO
 
 class PadreScreen extends StatefulWidget {
   final String userId;
@@ -17,7 +17,7 @@ class PadreScreen extends StatefulWidget {
 class _PadreScreenState extends State<PadreScreen> {
   final FirebaseService _firebaseService = FirebaseService();
   final MapController _mapController = MapController();
-  
+
   List<Estudiante> _misHijos = [];
   String? _rutaActivaId;
   LatLng? _ubicacionBus;
@@ -39,7 +39,8 @@ class _PadreScreenState extends State<PadreScreen> {
           .get();
 
       List<Estudiante> hijos = estudiantesSnap.docs
-          .map((doc) => Estudiante.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map((doc) => EventoViaje.fromFirestore(
+              doc.data() as Map<String, dynamic>, doc.id))
           .toList();
 
       setState(() {
@@ -98,8 +99,7 @@ class _PadreScreenState extends State<PadreScreen> {
         builder: (context) => AlertDialog(
           title: const Text('Recoger Estudiante'),
           content: const Text(
-            '¿Confirma que va a recoger a su hijo/a y NO usará el transporte escolar hoy?'
-          ),
+              '¿Confirma que va a recoger a su hijo/a y NO usará el transporte escolar hoy?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -108,7 +108,8 @@ class _PadreScreenState extends State<PadreScreen> {
             ElevatedButton(
               onPressed: () => Navigator.pop(context, true),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
-              child: const Text('Confirmar', style: TextStyle(color: Colors.white)),
+              child: const Text('Confirmar',
+                  style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -117,7 +118,9 @@ class _PadreScreenState extends State<PadreScreen> {
       if (confirmar != true) return;
 
       // Crear notificación para el conductor
-      await FirebaseFirestore.instance.collection('notificaciones_conductor').add({
+      await FirebaseFirestore.instance
+          .collection('notificaciones_conductor')
+          .add({
         'idEstudiante': estudianteId,
         'tipo': 'padre_recoge',
         'mensaje': 'El padre recogió al estudiante - NO viaja en bus hoy',
@@ -189,31 +192,35 @@ class _PadreScreenState extends State<PadreScreen> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
-                ..._misHijos.map((hijo) => Card(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      child: Text(hijo.nombre[0].toUpperCase()),
-                    ),
-                    title: Text(hijo.nombre),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Grado: ${hijo.grado}'),
-                        Text('Ruta: ${hijo.idRuta}'),
-                      ],
-                    ),
-                    trailing: ElevatedButton.icon(
-                      onPressed: () => _notificarRecogerEstudiante(hijo.id),
-                      icon: const Icon(Icons.person_pin_circle, size: 18),
-                      label: const Text('Yo Recojo'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                        foregroundColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                )).toList(),
+                ..._misHijos
+                    .map((hijo) => Card(
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              child: Text(hijo.nombre[0].toUpperCase()),
+                            ),
+                            title: Text(hijo.nombre),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Grado: ${hijo.grado}'),
+                                Text('Ruta: ${hijo.idRuta}'),
+                              ],
+                            ),
+                            trailing: ElevatedButton.icon(
+                              onPressed: () =>
+                                  _notificarRecogerEstudiante(hijo.id),
+                              icon:
+                                  const Icon(Icons.person_pin_circle, size: 18),
+                              label: const Text('Yo Recojo'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orange,
+                                foregroundColor: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ))
+                    .toList(),
               ],
             ),
           ),
@@ -226,13 +233,16 @@ class _PadreScreenState extends State<PadreScreen> {
                       FlutterMap(
                         mapController: _mapController,
                         options: MapOptions(
-                          initialCenter: _ubicacionBus ?? const LatLng(4.142, -73.626),
+                          initialCenter:
+                              _ubicacionBus ?? const LatLng(4.142, -73.626),
                           initialZoom: 14.0,
                         ),
                         children: [
                           TileLayer(
-                            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                            userAgentPackageName: 'com.example.transporte_escolar',
+                            urlTemplate:
+                                'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            userAgentPackageName:
+                                'com.example.transporte_escolar',
                           ),
                           if (_ubicacionBus != null)
                             MarkerLayer(
@@ -337,8 +347,9 @@ class _PadreScreenState extends State<PadreScreen> {
                       return ListView.builder(
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
-                          var evento = EventoViaje.fromMap(
-                            snapshot.data!.docs[index].data() as Map<String, dynamic>,
+                          var evento = EventoViaje.fromFirestore(
+                            snapshot.data!.docs[index].data()
+                                as Map<String, dynamic>,
                             snapshot.data!.docs[index].id,
                           );
 
