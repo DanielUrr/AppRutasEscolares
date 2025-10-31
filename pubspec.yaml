@@ -1,0 +1,45 @@
+name: transporte_escolar
+description: Sistema de transporte escolar con tracking en tiempo real
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  
+  # Mapas y Ubicación
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.1
+  geolocator: ^11.0.0
+  permission_handler: ^11.2.0
+  background_location: ^0.13.0
+  flutter_background_service: ^5.0.5
+  
+  # Firebase
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  cloud_firestore: ^4.13.6
+  firebase_messaging: ^14.7.9
+  firebase_storage: ^11.5.6
+  
+  # Notificaciones
+  flutter_local_notifications: ^16.3.0
+  
+  # Utilidades
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
+  http: ^1.1.0
+  intl: ^0.19.0
+  uuid: ^4.3.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
