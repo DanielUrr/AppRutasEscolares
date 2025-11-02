@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1050249820473",
+    "project_id": "apprutasescolares",
+    "storage_bucket": "apprutasescolares.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050249820473:android:f0a75c429ed5e57f6c50e8",
+        "android_client_info": {
+          "package_name": "com.ejemplo.transporte_escolar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDExjZXY-zSVo73tUKZfU8tteR6FopM96I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
