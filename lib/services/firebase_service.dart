@@ -224,8 +224,7 @@ class FirebaseService {
         .map((snapshot) {
       if (snapshot.docs.isEmpty) return null;
       return Viaje.fromFirestore(
-          snapshot.docs.first.data(),
-          snapshot.docs.first.id); // ✅
+          snapshot.docs.first.data(), snapshot.docs.first.id); // ✅
     });
   }
 
@@ -239,8 +238,7 @@ class FirebaseService {
         .map((snapshot) {
           if (snapshot.docs.isEmpty) return null;
           return Viaje.fromFirestore(
-              snapshot.docs.first.data(),
-              snapshot.docs.first.id); // ✅
+              snapshot.docs.first.data(), snapshot.docs.first.id); // ✅
         });
   }
 
@@ -267,8 +265,7 @@ class FirebaseService {
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
-          .map((doc) => EventoViaje.fromFirestore(
-              doc.data(), doc.id)) // ✅
+          .map((doc) => EventoViaje.fromFirestore(doc.data(), doc.id)) // ✅
           .toList();
     });
   }
@@ -337,8 +334,7 @@ class FirebaseService {
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
-          .map((doc) => RetiroManual.fromFirestore(
-              doc.data(), doc.id)) // ✅
+          .map((doc) => RetiroManual.fromFirestore(doc.data(), doc.id)) // ✅
           .toList();
     });
   }

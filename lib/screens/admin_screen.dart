@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../services/firebase_service.dart'; // ✓ CORRECTO
+import '../services/firebase_service.dart';
 import '../models/models.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -185,10 +185,10 @@ class _AdminScreenState extends State<AdminScreen>
                                     color = Colors.green;
                                     texto = 'Estudiante abordó el bus';
                                     break;
-                                  case TipoEvento.bajada: // ⬅️ ESTE CASO FALTA
+                                  case TipoEvento.bajada:
                                     icono = Icons.logout;
                                     color = Colors.red;
-                                    texto = 'Bajó del bus';
+                                    texto = 'Estudiante bajó del bus';
                                     break;
                                   case TipoEvento.mitadCamino:
                                     icono = Icons.location_on;
@@ -543,7 +543,10 @@ class _AdminScreenState extends State<AdminScreen>
     switch (tipo) {
       case 'abordaje':
         return Icons.login;
+      case 'bajada':
+        return Icons.logout;
       case 'mitad_camino':
+      case 'mitadCamino':
         return Icons.location_on;
       case 'llegada':
         return Icons.home;
@@ -556,7 +559,10 @@ class _AdminScreenState extends State<AdminScreen>
     switch (tipo) {
       case 'abordaje':
         return Colors.green;
+      case 'bajada':
+        return Colors.red;
       case 'mitad_camino':
+      case 'mitadCamino':
         return Colors.blue;
       case 'llegada':
         return Colors.orange;
@@ -569,7 +575,10 @@ class _AdminScreenState extends State<AdminScreen>
     switch (tipo) {
       case 'abordaje':
         return 'Abordaje';
+      case 'bajada':
+        return 'Bajada';
       case 'mitad_camino':
+      case 'mitadCamino':
         return 'Mitad de camino';
       case 'llegada':
         return 'Llegada';
@@ -616,14 +625,12 @@ class _AdminScreenState extends State<AdminScreen>
   }
 
   void _crearRuta() {
-    // Implementar diálogo para crear ruta
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Función de crear ruta - Por implementar')),
     );
   }
 
   void _editarRuta(Ruta ruta) {
-    // Implementar edición de ruta
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Función de editar ruta - Por implementar')),
     );
@@ -659,7 +666,6 @@ class _AdminScreenState extends State<AdminScreen>
   }
 
   void _crearEstudiante() {
-    // Implementar diálogo para crear estudiante
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
           content: Text('Función de crear estudiante - Por implementar')),
@@ -667,7 +673,6 @@ class _AdminScreenState extends State<AdminScreen>
   }
 
   void _editarEstudiante(Estudiante estudiante) {
-    // Implementar edición de estudiante
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
           content: Text('Función de editar estudiante - Por implementar')),
@@ -707,7 +712,6 @@ class _AdminScreenState extends State<AdminScreen>
   }
 
   void _crearConductor() {
-    // Implementar diálogo para crear conductor
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
           content: Text('Función de crear conductor - Por implementar')),

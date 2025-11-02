@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.transporte_app_nuevo"
+    namespace "com.ejemplo.transporte_escolar"
     compileSdk 34
     
     ndkVersion flutter.ndkVersion
@@ -42,8 +42,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.transporte_app_nuevo"
-        minSdk 21
+        applicationId "com.ejemplo.transporte_escolar"
+        minSdkVersion flutter.minSdkVersion
         targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

@@ -1,0 +1,7 @@
+int string location_updates_label 0x0
+int string ok 0x0
+int string permission_denied_explanation 0x0
+int string permission_rationale 0x0
+int string remove_location_updates 0x0
+int string request_location_updates 0x0
+int string settings 0x0

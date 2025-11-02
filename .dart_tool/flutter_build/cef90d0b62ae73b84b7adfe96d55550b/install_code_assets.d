@@ -1,0 +1,1 @@
+ C:\\Users\\cesar\\OneDrive\\Documentos\\Universidad\ 5\ Semestre\\AppRutasEscolares\\AppRutasEscolares-master\\.dart_tool\\flutter_build\\cef90d0b62ae73b84b7adfe96d55550b\\native_assets.json: 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../services/firebase_service.dart'; // ✓ CORRECTO
-import '../models/models.dart'; // ✓ CORRECTO
+import '../services/firebase_service.dart';
+import '../models/models.dart';
 
 class PadreScreen extends StatefulWidget {
   final String userId;
@@ -363,7 +363,7 @@ class _PadreScreenState extends State<PadreScreen> {
                               color = Colors.green;
                               texto = 'Subió al bus';
                               break;
-                            case TipoEvento.bajada: // ⬅️ ESTE CASO FALTA
+                            case TipoEvento.bajada:
                               icono = Icons.logout;
                               color = Colors.red;
                               texto = 'Bajó del bus';
