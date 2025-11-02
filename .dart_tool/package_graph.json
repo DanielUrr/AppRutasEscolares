@@ -7,7 +7,6 @@
       "name": "transporte_escolar",
       "version": "1.0.0+1",
       "dependencies": [
-        "background_location",
         "cloud_firestore",
         "cupertino_icons",
         "firebase_auth",
@@ -185,13 +184,6 @@
         "flutter_background_service_android",
         "flutter_background_service_ios",
         "flutter_background_service_platform_interface"
-      ]
-    },
-    {
-      "name": "background_location",
-      "version": "0.13.2",
-      "dependencies": [
-        "flutter"
       ]
     },
     {

@@ -20,12 +20,6 @@
       "languageVersion": "3.4"
     },
     {
-      "name": "background_location",
-      "rootUri": "file:///C:/Users/cesar/AppData/Local/Pub/Cache/hosted/pub.dev/background_location-0.13.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.1"
-    },
-    {
       "name": "boolean_selector",
       "rootUri": "file:///C:/Users/cesar/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.2",
       "packageUri": "lib/",
