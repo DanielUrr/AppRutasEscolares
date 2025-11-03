@@ -33,14 +33,21 @@ class FirebaseService {
 
   Future<Usuario?> obtenerUsuario(String uid) async {
     try {
+      print('🔍 Buscando usuario con UID: $uid'); // ✅ AGREGADO
+
       DocumentSnapshot doc =
           await _firestore.collection('usuarios').doc(uid).get();
+
+      print('📄 Documento existe: ${doc.exists}'); // ✅ AGREGADO
+      print('📄 Datos del documento: ${doc.data()}'); // ✅ AGREGADO
+
       if (doc.exists) {
         return Usuario.fromFirestore(
-            doc.data() as Map<String, dynamic>, doc.id); // ✅
+            doc.data() as Map<String, dynamic>, doc.id);
       }
       return null;
     } catch (e) {
+      print('❌ ERROR al obtener usuario: $e'); // ✅ AGREGADO
       throw Exception('Error al obtener usuario: $e');
     }
   }

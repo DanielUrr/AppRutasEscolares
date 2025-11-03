@@ -6,4 +6,11 @@
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDExjZXY-zSVo73tUKZfU8tteR6FopM96I</string>
     <string name="google_storage_bucket" translatable="false">apprutasescolares.firebasestorage.app</string>
     <string name="project_id" translatable="false">apprutasescolares</string>
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        
+        <item name="android:windowBackground">@drawable/launch_background</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+    </style>
 </resources>

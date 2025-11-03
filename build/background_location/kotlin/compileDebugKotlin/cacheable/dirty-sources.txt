@@ -1,4 +1,0 @@
-C:\Users\cesar\AppData\Local\Pub\Cache\hosted\pub.dev\background_location-0.13.2\android\src\main\kotlin\com\almoullim\background_location\Utils.kt
-C:\Users\cesar\AppData\Local\Pub\Cache\hosted\pub.dev\background_location-0.13.2\android\src\main\kotlin\com\almoullim\background_location\BackgroundLocationService.kt
-C:\Users\cesar\AppData\Local\Pub\Cache\hosted\pub.dev\background_location-0.13.2\android\src\main\kotlin\com\almoullim\background_location\BackgroundLocationPlugin.kt
-C:\Users\cesar\AppData\Local\Pub\Cache\hosted\pub.dev\background_location-0.13.2\android\src\main\kotlin\com\almoullim\background_location\LocationUpdatesService.kt
